@@ -10,10 +10,22 @@
 <div id="app2">
   <h1 ref="heading">{{ title }}</h1>
   <button v-on:click="onChange">Change something in Vue 1</button>
+  <!-- <my-component></my-component>
+  <my-component></my-component> -->
+</div>
+
+<div id="app3">
 </div>
 
 
-<script>
+
+
+<script type="text/javascript">
+// register components with Global Registration
+Vue.component('my-component', {
+  template: `<div>A custom component!</div>`
+});
+
 var vm1 = new Vue({
 
   data: {
@@ -48,7 +60,7 @@ var vm1 = new Vue({
 // we can use the sintax
 // <<name of var that contains the instance>>.$mount('<<>>')
 // to mount our instance in the DOM
- vm1.$mount('#app1');
+vm1.$mount('#app1');
 //If we create a property outside our instance in normal
 //JS it wont work as a normal property
 vm1.newProp = 'New!';
@@ -80,4 +92,16 @@ var vm2 = new Vue({
     }
   }
 });
+
+var vm3 = new Vue({
+  // With the  template property we can add HTML elements
+  // to our Vue instance
+  template:`
+  <h1>Hello!</h1>
+  `
+});
+// It is posible to mount out Vue instance with native JS
+vm3.$mount();
+document.getElementById('app3').appendChild(vm3.$el);
+
 </script>
