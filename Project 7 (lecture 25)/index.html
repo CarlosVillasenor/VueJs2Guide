@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <button @click="changeLink">Click to Change link</button>
+    <a v-bind:href="link">Link</a>
+  </div>
+
+
+</body>
+<script src="../Local_Vue/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+  el: '#app',
+  data: {
+    link: 'http://google.com'
+  },
+  methods: {
+    changeLink: function() {
+      this.link = 'http://google.com'
+    }
+  } // methods Ends
+});
+</script>
+</html>

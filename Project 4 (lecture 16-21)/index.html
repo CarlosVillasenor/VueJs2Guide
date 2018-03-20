@@ -1,0 +1,67 @@
+<!-- Put this in the HTML section in JSFiddle! -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<div id="app">
+	<button v-on:mouseover="increase">Hover me</button><!--v-on calls a Vue method depending on the event after the : -->
+	<button v-on:click="increase(2, $event)">Click me</button>
+	<p>{{ counter }}</p>
+	<p>{{ counter * 2/2 > 10 ? 'Greater than 10' : 'Equal or smaller 10' }}</p><!--you can Code in templates with template expresions-->
+	<p v-on:mousemove="updateCoordinates">
+		Coordinates: {{ x }} / {{ y }}
+		- <span v-on:mousemove.stop="" >DEAD SPOT</span><!-- we can add modifiers like stop or prevent to a method by adding the name after a . -->
+	</p>
+	<input type="text" v-on:keyup.enter.space="alertMe"><!--we can add also key modifiers to our modifiers to make them more specific like with enter and space -->
+	<p> Event modifiers list </p>
+
+	<ul>
+		<li>.stop</li>
+		<li>.prevent</li>
+		<li>.capture</li>
+		<li>.self</li>
+		<li>.once</li>
+	</ul>
+
+	<p> Key Modifiers list </p>
+
+	<ul>
+		<li>.enter </li>
+		<li>.tab </li>
+		<li>.delete (captures both “Delete” and “Backspace” keys) </li>
+		<li>.esc </li>
+		<li>.space </li>
+		<li>.up </li>
+		<li>.down </li>
+		<li>.left </li>
+		<li>.right </li>
+	</ul>
+
+</div><!--#app Ends -->
+
+<script src="../Local_Vue/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+	el: '#app',
+	data: {
+		counter: 0,
+		x: 0,
+		y: 0
+	},
+	methods: {
+		increase: function(step, event){
+			if ( step > 0 ) {
+				this.counter+= step;
+			}
+			else {
+				this.counter++;
+			}
+		},
+		updateCoordinates: function(event){
+			this.x = event.clientX;
+			this.y = event.clientY;
+		},
+		alertMe: function() {
+			alert('Alert!');
+		}
+	}
+});
+</script>

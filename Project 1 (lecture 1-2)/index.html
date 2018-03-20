@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <!-- a directive is an instruction Vue will recognize,
+    the directive is v-on is like "listen to some event"
+     in this case the event is passing by adding colon,
+     in this case our event is input -->
+    <input type="text" v-on:input="_changeTitle">
+    <p>{{title}}</p>
+  </div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script type="text/javascript">
+new Vue({ //A new Vue instance, core of each Vue application, they control their own template of code
+  el: '#app', // el is a reserved property and its value represents the div it gets to control
+  data: { // here we store all the date we want to use in this vue instance
+    title: 'Hello World!'
+  },
+  methods: { // we set here all the methods we are going to use in our template
+    _changeTitle: function(event) {
+      this.title = event.target.value;
+    }
+  } // methods Ends
+});
+</script>
+</html>

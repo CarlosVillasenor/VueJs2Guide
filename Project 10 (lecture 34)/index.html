@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style media="screen">
+
+</style>
+<body>
+  <div id="app">
+    <!-- v-if is a directive that allow us to bind it to
+    a condition or property wich results to true or false
+    in the end, if true it will render the element and its
+    child elements, else it will not display it nor their
+    sons -->
+    <p v-if="show">You can see me! <span>Hello!</span></p>
+    <!--we can also have the directive in a template so
+    we can show or hide many nested elements-->
+    <template v-if="show">
+      <h3>Heading</h3>
+      <p>inside a template</p>
+    </template>
+    <p v-else-if="!show">v-else-if working</p>
+    <!-- if whe use the directive v-show the element will
+    have display:none when it is not rendered-->
+    <p v-show="!show">Do you also see me?</p>
+
+    <button v-on:click="show = !show">Switch</button>
+
+  </div>
+</body>
+<script src="../Local_Vue/vue.js"></script>
+<script type="text/javascript">
+// create a root instance
+new Vue({
+  el: '#app',
+  data: {
+    show: true
+  }, // data Ends
+  methods: {
+  }, // methods Ends
+  computed:{
+  }, // computed Ends
+  watch:{
+  } // watch Ends
+});
+</script>
+</html>

@@ -1,0 +1,83 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<div id="app1">
+  <h1 ref="heading">{{ title }}</h1>
+  <!-- ref is a Vue property that we can use to reference HTML elements -->
+  <button v-on:click="_show" ref="myButton">Show Paragraph</button>
+  <p v-if="showParagraph">This is not always visible</p>
+</div>
+
+<div id="app2">
+  <h1 ref="heading">{{ title }}</h1>
+  <button v-on:click="onChange">Change something in Vue 1</button>
+</div>
+
+
+<script>
+var vm1 = new Vue({
+
+  data: {
+    title: 'The VueJS Instance',
+    showParagraph: false
+  },
+  methods: {
+    _show: function() {
+      this.showParagraph = true;
+      this.updateTitle('The VueJS Instance (Updated)');
+      // to get an element with the ref property we can use the
+      // sintax this.$refs.<<ref property name on the element>>
+      console.log(this.$refs.myButton);
+      this.$refs.myButton.innerText = 'Test';
+    },
+    updateTitle: function(title) {
+      this.title = title;
+    }
+  },
+  computed: {
+    lowercaseTitle: function() {
+      return this.title.toLowerCase();
+    }
+  },
+  watch: {
+    title: function(value) {
+      alert('Title changed, new value: ' + value);
+    }
+  }
+});
+// Instead of using the el property of Vue in the instance
+// we can use the sintax
+// <<name of var that contains the instance>>.$mount('<<>>')
+// to mount our instance in the DOM
+ vm1.$mount('#app1');
+//If we create a property outside our instance in normal
+//JS it wont work as a normal property
+vm1.newProp = 'New!';
+//we can access to the data of our instance with
+//  <<instance name>>.$data
+console.log(vm1.$data.title);
+vm1.$refs.heading.innerText = 'Something else';
+setTimeout( function() {
+  // We can easily acces to another Vue instance if that
+  // instance is declared as a var by just calling its
+  // variable name, we can access its data properties
+  // and methods alike
+  vm1.title = "Changed by a Timer";
+  vm1._show();
+}, 2000);
+
+var vm2 = new Vue({
+  el: '#app2',
+  data: {
+    title:'The second instance'
+  },
+  methods: {
+    onChange: function(){
+      // We can easily acces to another Vue instance if that
+      // instance is declared as a var by just calling its
+      // variable name, we can access its data properties
+      // and methods alike
+      vm1.title = "Changed by app2"
+    }
+  }
+});
+</script>

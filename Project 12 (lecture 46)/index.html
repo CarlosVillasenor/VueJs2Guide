@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monster Slayer</title>
+  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="css/foundation.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div id="app">
+    <section class="row">
+      <div class="small-6 columns">
+        <h1 class="text-center">YOU</h1>
+        <div class="healthbar">
+          <div class="healthbar text-center"
+          style="background-color: green; margin: 0; color: white;"
+          :style="{width: playerHealth + '%'}">
+          {{playerHealth}}
+        </div>
+      </div>
+    </div>
+    <div class="small-6 columns">
+      <h1 class="text-center">MONSTER</h1>
+      <div class="healthbar">
+        <div class="healthbar text-center"
+        style="background-color: green; margin: 0; color: white;"
+        :style="{width: monsterHealth + '%'}">
+        {{monsterHealth}}
+      </div>
+    </div>
+  </div>
+</section>
+<section class="row controls" v-if="!gameIsRunning">
+  <div class="small-12 columns">
+    <button id="start-game" v-on:click="_starGame">START NEW GAME</button>
+  </div>
+</section>
+<section class="row controls" v-else>
+  <div class="small-12 columns">
+    <button id="attack" v-on:click="_attack">ATTACK</button>
+    <button id="special-attack" v-on:click="_specialAttack">SPECIAL ATTACK</button>
+    <button id="heal" v-on:click="_heal">HEAL</button>
+    <button id="give-up" v-on:click="_giveUp">GIVE UP</button>
+  </div>
+</section>
+<section class="row log" v-if="turns.length > 0">
+  <div class="small-12 columns">
+    <ul>
+      <li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+        {{turn.text}}
+      </li>
+    </ul>
+  </div>
+</section>
+</div>
+
+</body>
+
+<script>
+new  Vue({
+  el: '#app',
+  data: {
+    playerHealth: 100,
+    monsterHealth: 100,
+    gameIsRunning: false,
+    turns: []
+  },
+  methods: {
+    _starGame: function(){
+      this.gameIsRunning = true;
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+      this.turns = [];
+    },
+    _attack: function(){
+      var damage = this._calculateDamage(3,10);
+      this.monsterHealth -= damage;
+      // unshift is the oposite of push
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player hits Monster for ' + damage
+      });
+      if(this._checkWin()){
+        return;
+      }
+      this.monsterAttacks();
+    },
+    _specialAttack: function(){
+      var damage = this._calculateDamage(10,20);
+      this.monsterHealth -= damage;
+      // unshift is the oposite of push
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player hits Monster hard for ' + damage
+      });
+      if(this._checkWin()){
+        return;
+      }
+      this.monsterAttacks();
+    },
+    _heal: function(){
+      if (this.playerHealth <= 90) {
+        this.playerHealth += 10;
+      }
+      else {
+        this.playerHealth = 100;
+      }
+      this.turns.unshift({
+        isPlayer: true,
+        text: 'Player heals for 10'
+      });
+      this.monsterAttacks();
+    },
+    _giveUp: function(){
+      this.gameIsRunning = false;
+    },
+    monsterAttacks:  function(){
+      var damage = this._calculateDamage(3,10);
+      this.playerHealth -= damage;
+      this._checkWin();
+      // unshift is the oposite of push
+      this.turns.unshift({
+        isPlayer: false,
+        text: 'Monster hits Player for ' + damage
+      });
+    },
+    _calculateDamage: function(min,max){
+      return Math.max(Math.floor(Math.random() * max) + 1, min);
+    },
+    _checkWin: function(){
+      if ( this.monsterHealth <= 0 ){
+        if (confirm('You won!, New Game?')){
+          this._starGame();
+        }
+        else {
+          this.gameIsRunning = false;
+        }
+        return true;
+      }
+      else if ( this.playerHealth <= 0 ){
+        if (confirm('You lost!, New Game?')){
+          this._starGame();
+        }
+        else {
+          this.gameIsRunning = false;
+        }
+        return true;
+      }
+      return false;
+    }
+  }
+});
+</script>
+
+</html>
