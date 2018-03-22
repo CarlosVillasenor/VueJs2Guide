@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="../Local_Vue/vue.js"></script>
+  <meta charset="utf-8">
+  <title>Vue Components</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></head>
+  <body>
+    <div id="app">
+      <my-cmplocal></my-cmplocal>
+      <hr>
+      <my-cmplocal></my-cmplocal>
+    </div>
+
+    <div id="app2">
+      <my-cmp></my-cmp>
+      <hr>
+      <my-cmp></my-cmp>
+    </div>
+
+    <!-- <script src="/dist/build.js"></script> -->
+  </body>
+  </html>
+
+  <script type="text/javascript">
+// Global Registration of a component
+  Vue.component('my-cmp', {
+    data: function () {
+      //data written with this sintax is unique to the component
+      //meaning that is not shared with other components
+      return {
+        status: 'Critical'
+      }
+    },
+    template: `<p>Server Status: {{ status }}
+    (<button v-on:click="_changeStatus">Change</button>)</p>`,
+    methods: {
+      _changeStatus: function(){
+        this.status = 'normal';
+      }
+    }
+  });
+
+  // Local Registration of a component
+    var cmplocal = {
+      data: function () {
+        //data written with this sintax is unique to the component
+        //meaning that is not shared with other components
+        return {
+          status: 'Critical'
+        }
+      },
+      template: `<p>Server Status: {{ status }}
+      (<button v-on:click="_changeStatus">Change Local</button>)</p>`,
+      methods: {
+        _changeStatus: function(){
+          this.status = 'normal';
+        }
+      }
+    };
+
+  new Vue({
+    el: '#app',
+    components: {
+      'my-cmplocal' : cmplocal
+    }
+  })
+
+  new Vue({
+    el: '#app2'
+  })
+
+</script>
