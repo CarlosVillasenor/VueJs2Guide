@@ -37,7 +37,7 @@ var vm1 = new Vue({
       this.showParagraph = true;
       this.updateTitle('The VueJS Instance (Updated)');
       // to get an element with the ref property we can use the
-      // sintax this.$refs.<<ref property name on the element>>
+      // syntax this.$refs.<<ref property name on the element>>
       console.log(this.$refs.myButton);
       this.$refs.myButton.innerText = 'Test';
     },
@@ -57,7 +57,7 @@ var vm1 = new Vue({
   }
 });
 // Instead of using the el property of Vue in the instance
-// we can use the sintax
+// we can use the syntax
 // <<name of var that contains the instance>>.$mount('<<>>')
 // to mount our instance in the DOM
 vm1.$mount('#app1');
