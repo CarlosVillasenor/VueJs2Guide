@@ -19,6 +19,8 @@ export default {
   font-family: 'Arizonia', cursive ;
   font-size: 24px;
   color: #6e6e6e;
+  border: 1px solid rgb(31, 0, 135, 0.2);
+  border-radius: 1px;
 }
 .quote {
   cursor: pointer;

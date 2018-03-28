@@ -9,7 +9,10 @@
 <body>
 
   <div id="app">
-    <input type="text" v-model="name"><!--To make two way data binding we add the v-model directive tells to Vue to setup to our data binding for this input in this case and into "" the property you want to bind -->
+    <!--To make two way data binding we add the v-model directive tells to Vue
+    to setup to our data binding for this input in this case and into "" the
+    property you want to bind -->
+    <input type="text" v-model="name">
     <p>{{ name }}</p>
   </div>
 
