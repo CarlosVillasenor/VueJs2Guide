@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style media="screen">
+.demo {
+  width: 100px;
+  height: 100px;
+  background-color: gray;
+  display: inline-block;
+  margin: 10px;
+  transition: all 1s;
+}
+</style>
+<body>
+  <div id="app">
+    <!-- We can set styles dynamically without CSS classes -->
+    <div class="demo" :style="{backgroundColor: color}"></div>
+    <!-- As example we can create a progress bar by dynamically changing our properties -->
+    <div class="demo" :style="myStyle"></div><!-- we can add a computed propertie to set our style -->
+    <div class="demo" :style="[myStyle, {height: width + 'px'}]" ></div><!-- we can even use a propertie in an object to set our style -->
+    <hr>
+    <input type="text" v-model="color">
+    <input type="text" v-model="width">
+
+  </div>
+</body>
+
+
+<script src="../Local-Vue/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+  el: '#app',
+  data: {
+    color: 'gray',
+    width: 200
+  }, // data Ends
+  methods: {
+    _color: function( ){
+      console.log(this.color);
+    }
+  }, // methods Ends
+  computed:{
+    myStyle: function(){
+      return {
+        backgroundColor: this.color,
+        width: this.width + 'px'
+      }
+    }
+  }, // computed Ends
+  watch:{
+    color:"_color"
+  } // watch Ends
+});
+</script>
+</html>

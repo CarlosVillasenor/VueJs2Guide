@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <button v-on:click="counter++">Increase</button> <!-- when we call this method it calls all the methods and computed properties on Vue that also depend on the same property  -->
+    <button v-on:click="counter--">Decrease</button> <!-- when we call this method it calls all the methods and computed properties on Vue that also depend on the same property  -->
+    <button v-on:click="secondCounter++">Increase Second</button> <!-- when we update a property Vue only calls all the methods that appear in the DOM  -->
+    <p>Counter: {{ counter }}</p>
+    <p>Result of counter: {{ result() }} | {{ output }} </p><!-- the idea to call a method in the html is that it gets updated whenever the Page is updated like whenever a Properti in the DOM is updated -->
+    <p>Result of secondCounter: {{ secondResult() }}</p>
+    <p>Second Counter: {{ secondCounter }}</p>
+  </div>
+
+
+</body>
+<script src="../Local-Vue/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+  el: '#app',
+  data: {
+    counter: 0,
+    secondCounter: 0
+  },
+  computed: { // Dependent Properties
+    output: function() {
+      // this is call whenever counter is updated
+      console.log('Computed');
+      return this.counter > 5 ? 'Greater 5' : 'Smaller 5'
+    }
+  },
+  watch: { // Execute code upon data changes
+    counter: function(value) {
+      var self = this;
+      setTimeout( function() {
+        self.counter = 0;
+      }, 2000);
+
+    }
+  },
+  methods: {
+    result: function() {
+      console.log('Method');
+      return this.counter > 5 ? 'Greater 5' : 'Smaller 5'
+    },
+    secondResult: function() {
+      console.log('Second Method');
+      return this.secondCounter  > 5 ? 'Greater 5' : 'Smaller 5'
+    }
+  } // methods Ends
+});
+</script>
+</html>

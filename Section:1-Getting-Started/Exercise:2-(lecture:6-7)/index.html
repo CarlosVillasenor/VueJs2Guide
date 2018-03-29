@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <input type="text" v-on:input="_changeTitle">
+    <p>{{title}}</p>
+  </div>
+
+
+</body>
+<!-- We can import Vue.js locally with a script tag -->
+<script src="../Local-Vue/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+  el: '#app',
+  data: {
+    title: 'Hello World!'
+  },
+  methods: {
+    _changeTitle: function(event) {
+      this.title = event.target.value;
+    }
+  }
+});
+</script>
+</html>
