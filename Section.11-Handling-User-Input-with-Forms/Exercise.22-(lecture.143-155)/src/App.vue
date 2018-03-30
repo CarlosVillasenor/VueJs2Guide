@@ -187,9 +187,9 @@ export default {
     }
   },
   methods: {
-      submitted(){
-        this.isSubmitted = true;
-      }
+    submitted(){
+      this.isSubmitted = true;
+    }
   },
   components: {
     appSwitch: Switch
